@@ -232,7 +232,9 @@ function ConversationsPage() {
               <Button variant="secondary" size="sm">Ver opções</Button>
             </div>
             {sentMessages.map((message, index) => (
-              <div className="message-row outgoing" key={`${message}-${index}`}><div><div className="message-bubble">{message}<span className="message-time">agora <CheckCheck /></span></div></div>
+              <div className="message-row outgoing" key={`${message}-${index}`}>
+                <div><div className="message-bubble">{message}<span className="message-time">agora <CheckCheck /></span></div></div>
+              </div>
             ))}
           </div>
 
