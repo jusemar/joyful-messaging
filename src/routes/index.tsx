@@ -68,6 +68,15 @@ const conversations: Conversation[] = [
   { id: 6, name: "João Prado", initials: "JP", message: "Bora marcar o café da semana?", time: "seg", tone: "gold" },
 ];
 
+const fallbackConversation: Conversation = {
+  id: 0,
+  name: "Conversa",
+  initials: "JA",
+  message: "",
+  time: "",
+  tone: "jade",
+};
+
 function Avatar({ initials, tone, online = false, small = false }: { initials: string; tone: Conversation["tone"]; online?: boolean; small?: boolean }) {
   return (
     <div className="relative shrink-0">
@@ -101,7 +110,7 @@ function ConversationsPage() {
   const filtered = conversations.filter((conversation) =>
     `${conversation.name} ${conversation.message}`.toLowerCase().includes(query.toLowerCase()),
   );
-  const activeConversation = conversations.find((conversation) => conversation.id === activeId) ?? conversations[0];
+  const activeConversation = conversations.find((conversation) => conversation.id === activeId) ?? fallbackConversation;
 
   const openConversation = (id: number) => {
     setActiveId(id);
@@ -163,7 +172,7 @@ function ConversationsPage() {
           <div className="conversation-list">
             {filtered.map((conversation) => (
               <button key={conversation.id} type="button" className={`conversation-item ${activeId === conversation.id ? "active" : ""}`} onClick={() => openConversation(conversation.id)}>
-                <Avatar initials={conversation.initials} tone={conversation.tone} online={conversation.online} />
+                <Avatar initials={conversation.initials} tone={conversation.tone} online={Boolean(conversation.online)} />
                 <div className="conversation-copy">
                   <div className="conversation-title">
                     <strong>{conversation.name}</strong>
@@ -192,7 +201,7 @@ function ConversationsPage() {
         <section className={`chat-panel ${mobileChatOpen ? "mobile-open" : ""}`} aria-label={`Conversa com ${activeConversation.name}`}>
           <header className="chat-header">
             <Button variant="ghost" size="icon" className="mobile-back" aria-label="Voltar para conversas" onClick={() => setMobileChatOpen(false)}><ArrowLeft /></Button>
-            <Avatar initials={activeConversation.initials} tone={activeConversation.tone} online={activeConversation.online} />
+            <Avatar initials={activeConversation.initials} tone={activeConversation.tone} online={Boolean(activeConversation.online)} />
             <div className="chat-person">
               <strong>{activeConversation.name}</strong>
               <span>{activeConversation.online ? "online agora" : "visto ontem"}</span>
