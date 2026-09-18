@@ -250,7 +250,7 @@
   .chat-panel { display: none; width: 100%; height: 100dvh; }
   .chat-panel.mobile-open { display: flex; }
   .chat-header { grid-template-columns: auto auto minmax(0,1fr) auto; padding: max(.5rem, env(safe-area-inset-top)) .45rem .5rem; }
-  .mobile-back { display: inline-flex !important; }
+  .mobile-back { display: inline-flex; }
   .chat-actions > :nth-child(-n+2) { display: none; }
   .messages { padding: 1rem .65rem; gap: .65rem; }
   .message-row > div:last-child { max-width: 82%; }
